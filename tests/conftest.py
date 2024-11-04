@@ -1,5 +1,6 @@
 import asyncio
 import os
+from typing import AsyncGenerator
 from asyncio import AbstractEventLoop
 from collections.abc import Iterator
 from dataclasses import dataclass
@@ -8,7 +9,7 @@ import pytest
 import yaml
 from sqlalchemy import Engine
 from sqlalchemy.engine.url import URL
-from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine
 
 
 @dataclass
@@ -37,7 +38,7 @@ def loop() -> AbstractEventLoop:
 @pytest.fixture(autouse=True)
 async def engine(
     loop: AbstractEventLoop, config: DatabaseConfig
-) -> Iterator[Engine]:
+) -> AsyncGenerator[AsyncEngine, None]:
     engine = create_async_engine(
         URL.create(
             drivername="postgresql+asyncpg",
