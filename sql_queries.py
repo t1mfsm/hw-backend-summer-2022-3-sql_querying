@@ -37,8 +37,10 @@ LIMIT 3;
 # Вывести число перелетов внутри одной таймзоны
 # Нужно вывести 1 значение в колонке count
 TASK_3_QUERY = """
-SELECT COUNT(*) AS count FROM flights
-WHERE 
-    departure_timezone = arrival_timezone;
+SELECT COUNT(*) AS count 
+FROM flights f
+JOIN airports_data a_departure ON f.departure_airport = a_departure.airport_code
+JOIN airports_data a_arrival ON f.arrival_airport = a_arrival.airport_code
+WHERE a_departure.timezone = a_arrival.timezone;
 """
 
