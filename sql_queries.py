@@ -5,12 +5,13 @@
 TASK_1_QUERY = """
 SELECT 
     flight_no,
-    EXTRACT(EPOCH FROM (scheduled_arrival - scheduled_departure)) AS duration
+    (scheduled_arrival - scheduled_departure) AS duration
 FROM 
     flights
 ORDER BY 
     duration ASC
 LIMIT 5;
+
 """
 
 
